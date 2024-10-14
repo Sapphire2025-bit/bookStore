@@ -42,4 +42,27 @@ function displayBooks()
     });
 }
 
+function read()
+{
+    console.log("read");
+    console.log(this);
+}
+
+function update()
+{
+    console.log("update");
+    console.log(this);
+}
+
 displayBooks();
+
+//event listeners - for all the clickable items in the page:
+//read, update, delete, new book
+let buttons = document.getElementsByClassName("read");
+for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', read);
+}
+buttons = document.getElementsByClassName("update");
+for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', update);
+}
