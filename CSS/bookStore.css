@@ -1,0 +1,26 @@
+#listContainer{
+    display: grid;
+    grid-template-columns: 1fr 5fr 4fr 3fr 3fr 1fr;
+    grid-template-rows: auto;
+}
+
+.bookHeader{
+    background-color: "#f3f3f3";
+    padding: 20px;
+    text-align: center;
+    background-color: lightgray;
+}
+.id, .title, .price, .read, .update{
+    background-color: "#f3f3f3";
+    padding: 20px;
+    text-align: center;
+    border: 1px solid lightgray;
+}
+
+.delete{
+    background-image: url(../data/images/trash.png);
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid lightgray;
+}
