@@ -1,26 +1,75 @@
-#listContainer{
+#mainPage{
     display: grid;
-    grid-template-columns: 1fr 5fr 4fr 3fr 3fr 1fr;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
 }
 
-.bookHeader{
-    background-color: "#f3f3f3";
-    padding: 20px;
-    text-align: center;
-    background-color: lightgray;
+table {
+    border-collapse: collapse;
+    width: 100%;
 }
-.id, .title, .price, .read, .update{
-    background-color: "#f3f3f3";
-    padding: 20px;
-    text-align: center;
-    border: 1px solid lightgray;
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
 }
 
 .delete{
     background-image: url(../data/images/trash.png);
-    background-size: 40px 40px;
+    background-size: 35px 35px;
     background-repeat: no-repeat;
     background-position: center;
     border: 1px solid lightgray;
+}
+
+#bookInfo{
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+}
+
+#exitRead{
+    position: absolute;
+    margin-left: 0;
+}
+
+#title{
+    text-align: center;
+    background-color: lightblue;
+}
+
+#moreInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-content: center;
+}
+
+.class-img{
+    height: 30%;
+    width: auto;
+    border: 1px solid gray;
+}
+
+#price_rating{
+    align-content: flex-start;
+    margin-top: 40%;
+}
+
+#price{
+    display: flex;
+    justify-content: center;
+}
+
+#rating{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10%;
+    background-color: lightgray;
+}
+
+#ratingNumber{
+    margin-right: 10%;
+    margin-left: 10%;
 }

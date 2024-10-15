@@ -4,35 +4,35 @@
             "id": 1,
             "title": "The Best Dragon",
             "price": 13.70,
-            "image": "./imges/TheBestDragon.png",
+            "image": "../data/images/TheBestDragon.png",
             "rating": 0
         },
         {
             "id": 2,
             "title": "The worst Dragon",
             "price": 3.70,
-            "image": "./images/TheWorstDragon.png",
+            "image": "../data/images/TheWorstDragon.png",
             "rating": 0
         },
         {
             "id": 3,
             "title": "The Chair I Used To Like",
             "price": 80.75,
-            "image": "./images/TheChairIUsedToLike.png",
+            "image": "../data/images/TheChairIUsedToLike.png",
             "rating": 0
         },
         {
             "id": 4,
             "title": "Why No One Eats Carrots",
             "price": 14.90,
-            "image": "./images/WhyNoOneEatsCarrots.png",
+            "image": "../data/images/WhyNoOneEatsCarrots.png",
             "rating": 0
         },
         {
             "id": 5,
             "title": "The Lake under my tree",
             "price": 5.99,
-            "image": "./images/TheLakeUnderMyTree.png",
+            "image": "../data/images/TheLakeUnderMyTree.png",
             "rating": 0
         }
     ]

@@ -10,9 +10,57 @@
     <div id="topNavBar">
         <div id="newBook">newBook</div>
     </div>
-    <div id="listContainer"></div>
-    <div id="bookInfo"></div>
-    <div id="newBookForm"></div>
+    <div id="mainPage">
+        <div id="listContainer">
+            <table id="table"></table>
+        </div>
+        <div id="bookInfo">
+            <!-- <div id="title">title</div>
+            <div id="moreInfo">
+                <div id="pic">pic</div>
+                <div id="price_rating">
+                    <div id="price">price</div>
+                    <div id="rating">
+                        <button id="decrease">-</button>
+                        <div id="ratingNumber">num</div>
+                        <button id="increase">+</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div id="newBookForm">
+        <form>
+            <button id="closeNewBook">X</button>
+            <h1>+ New Book</h1>
+            <h1>------------</h1>
+            <label>
+                Id
+                <br>
+                <input type="number" name="id" value=-1>
+            </label>
+            <br>
+            <label>
+                Title
+                <br>
+                <input type="text" name="title">
+            </label>
+            <br>
+            <label>
+                Price
+                <br>
+                <input type="number" name="price">
+            </label>
+            <br>
+            <label>
+                Cover Image URL
+                <br>
+                <input type="image" name="imageUrl">
+            </label>
+            <br>
+            <button id="confirmNewBook">Add</button>
+        </form>
+    </div>
     <script type="module" src="../JS/bookStore.js"></script>
 </body>
 </html>
