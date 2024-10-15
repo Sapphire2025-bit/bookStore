@@ -73,3 +73,26 @@ td, th {
     margin-right: 10%;
     margin-left: 10%;
 }
+
+#newBookForm{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+}
+
+form{
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    padding: 2%;
+}
+
+#formTitle{
+    border-bottom: 5px dotted white;
+}
+
+#confirmNewBook{
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+}

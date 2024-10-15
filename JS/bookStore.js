@@ -60,6 +60,7 @@ function displayBooks()
 
 function read()
 {
+    exitNewBook();
     let data = this.parentElement.children;
     let bookInfo = document.getElementById("bookInfo");
     let id = data[0].textContent;
@@ -107,7 +108,47 @@ function update()
 
 function newBook()
 {
+    exitRead();
+    let newBookForm = document.getElementById("newBookForm");
+    newBookForm.innerHTML = `
+        <button id="closeNewBook">X</button>    
+        <form>
+            <h1 id="formTitle">+ New Book</h1>
+            <label>
+                Id
+                <br>
+                <input type="number" name="id" value=-1>
+            </label>
+            <br>
+            <label>
+                Title
+                <br>
+                <input type="text" name="title">
+            </label>
+            <br>
+            <label>
+                Price
+                <br>
+                <input type="number" name="price">
+            </label>
+            <br>
+            <label>
+                Cover Image URL
+                <br>
+                <input type="file" name="imageUrl">
+            </label>
+            <br>
+            <button id="confirmNewBook">Add</button>
+        </form>
+    `;
+    let exit = document.getElementById("closeNewBook");
+    exit.addEventListener('click', exitNewBook);
+}
 
+function exitNewBook()
+{
+    let newBookForm = document.getElementById("newBookForm");
+    newBookForm.innerHTML = ``;
 }
 
 //localStorage.clear();
