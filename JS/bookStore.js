@@ -112,43 +112,81 @@ function newBook()
     let newBookForm = document.getElementById("newBookForm");
     newBookForm.innerHTML = `
         <button id="closeNewBook">X</button>    
-        <form>
+        <form id="newBookForm">
             <h1 id="formTitle">+ New Book</h1>
             <label>
                 Id
                 <br>
-                <input type="number" name="id" value=-1>
+                <input type="number" id="BookId" name="id" value=${nextId} min=1 required>
             </label>
             <br>
             <label>
                 Title
                 <br>
-                <input type="text" name="title">
+                <input type="text" id="title" name="title" required>
             </label>
             <br>
             <label>
                 Price
                 <br>
-                <input type="number" name="price">
+                <input type="number" id="price" name="price" min=1 max=999.99 required>
             </label>
             <br>
             <label>
                 Cover Image URL
                 <br>
-                <input type="file" name="imageUrl">
+                <input type="file" id="image" name="imageUrl">
             </label>
             <br>
-            <button id="confirmNewBook">Add</button>
-        </form>
+            <button type="submit">Add</button>
+        </form> 
     `;
+
     let exit = document.getElementById("closeNewBook");
     exit.addEventListener('click', exitNewBook);
+    
+    document.getElementById("newBookForm").addEventListener('submit', verifyInput);
 }
 
 function exitNewBook()
 {
     let newBookForm = document.getElementById("newBookForm");
     newBookForm.innerHTML = ``;
+}
+
+function verifyInput(event)
+{
+    event.preventDefault();
+
+    let currentId = document.getElementById("BookId").value;
+    allBooks.forEach(book => {
+        if(book.id == currentId)
+            return;
+    });
+    let currentTitle = document.getElementById("title").value;
+    if(currentTitle == "")
+        return;
+    let currentPrice = document.getElementById("price").value;
+    let currentImage = document.getElementById("image").value;
+
+
+    //if we reached here, the id is valid. push the new book to all books, and update the JSON file
+    allBooks.push({ "id": currentId,
+        "title": currentTitle,
+        "price": currentPrice,
+        "image": currentImage,
+        "rating": 0});
+
+    //pick the next id:
+    nextId = (nextId < currentId) ? currentId + 1 : nextId + 1;
+
+    //update the local storage
+    localStorage.setItem("books", JSON.stringify(allBooks));
+    localStorage.setItem("nextId", nextId);
+    //remove the form
+    exitNewBook();
+    //show the updated book list
+    displayBooks();
 }
 
 //localStorage.clear();
