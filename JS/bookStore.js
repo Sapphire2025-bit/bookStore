@@ -189,6 +189,17 @@ function verifyInput(event)
     displayBooks();
 }
 
+function remove()
+{
+    let data = this.parentElement.children;
+    let id = data[0].textContent;
+    allBooks = allBooks.filter(book => book.id !== id);
+    //update the local storage:
+    localStorage.setItem("books", JSON.stringify(allBooks));
+    //show the updated book list
+    displayBooks();
+}
+
 //localStorage.clear();
 displayBooks();
 
@@ -201,6 +212,10 @@ for (var i = 0; i < buttons.length; i++) {
 buttons = document.getElementsByClassName("update");
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', update);
+}
+buttons = document.getElementsByClassName("delete");
+for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', remove);
 }
 //only one this time (by id)
 buttons = document.getElementById("newBook");
