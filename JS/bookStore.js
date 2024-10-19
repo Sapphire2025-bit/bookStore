@@ -102,8 +102,52 @@ function exitRead()
 
 function update()
 {
-    console.log("update");
-    console.log(this.parentElement);
+    exitRead();
+    let newBookForm = document.getElementById("newBookForm");
+    let data = this.parentElement.children;
+    
+    let id = data[0].textContent;
+    let title = data[1].textContent;
+    let price = data[2].textContent.slice(1);
+    console.log(title);
+    //find the image on the allBooks array by book id
+
+    newBookForm.innerHTML = `
+        <button id="closeNewBook">X</button>    
+        <form id="newBookForm">
+            <h1 id="formTitle">Update Book</h1>
+            <label>
+                Id
+                <br>
+                <input type="number" id="BookId" name="id" value=${id} min=1 readonly>
+            </label>
+            <br>
+            <label>
+                Title
+                <br>
+                <input type="text" id="title" name="title" value=${title} required>
+            </label>
+            <br>
+            <label>
+                Price
+                <br>
+                <input type="number" id="price" name="price" min=1 max=999.99 step=0.01 value=${price} required>
+            </label>
+            <br>
+            <label>
+                Cover Image URL
+                <br>
+                <input type="file" id="image" name="imageUrl">
+            </label>
+            <br>
+            <button type="submit">Add</button>
+        </form> 
+    `;
+
+    let exit = document.getElementById("closeNewBook");
+    exit.addEventListener('click', exitNewBook);
+    
+    document.getElementById("newBookForm").addEventListener('submit', verifyInputUpdate);
 }
 
 function newBook()
@@ -129,7 +173,7 @@ function newBook()
             <label>
                 Price
                 <br>
-                <input type="number" id="price" name="price" min=1 max=999.99 required>
+                <input type="number" id="price" name="price" min=1 max=999.99 step=0.01 required>
             </label>
             <br>
             <label>
@@ -178,11 +222,39 @@ function verifyInput(event)
         "rating": 0});
 
     //pick the next id:
-    nextId = (nextId < currentId) ? currentId + 1 : nextId + 1;
+    nextId = (+nextId < +currentId) ? +currentId + 1 : +nextId + 1;
 
     //update the local storage
     localStorage.setItem("books", JSON.stringify(allBooks));
     localStorage.setItem("nextId", nextId);
+    //remove the form
+    exitNewBook();
+    //show the updated book list
+    displayBooks();
+}
+
+function verifyInputUpdate(event)
+{
+    event.preventDefault();
+
+    let currentTitle = document.getElementById("title").value;
+    if(currentTitle == "")
+        return;
+    let currentId = document.getElementById("BookId").value;
+    let currentPrice = document.getElementById("price").value;
+    let currentImage = document.getElementById("image").value;
+
+    allBooks.forEach(book => {
+        if(book.id == currentId)
+        {
+            book.title = currentTitle;
+            book.price = currentPrice;
+            book.image = currentImage;
+        }
+    });
+
+    //update the local storage
+    localStorage.setItem("books", JSON.stringify(allBooks));
     //remove the form
     exitNewBook();
     //show the updated book list
