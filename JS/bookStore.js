@@ -29,8 +29,8 @@ function displayBooks()
         <table>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Price</th>
+                <th id="titleSort">Title ▼</th>
+                <th id="priceSort">Price ▼</th>
                 <th>Action</th>
                 <th></th>
                 <th></th>
@@ -238,6 +238,7 @@ function verifyInputUpdate(event)
     event.preventDefault();
 
     let currentTitle = document.getElementById("title").value;
+    console.log(currentTitle);
     if(currentTitle == "")
         return;
     let currentId = document.getElementById("BookId").value;
@@ -272,6 +273,21 @@ function remove()
     displayBooks();
 }
 
+function sortDataByTitle()
+{
+    console.log("by title");
+    allBooks = allBooks.sort((a,b) => a.title.localeCompare(b.title));
+    localStorage.setItem("books", JSON.stringify(allBooks));
+    displayBooks();
+}
+
+function sortDataByPrice()
+{
+    allBooks = allBooks.sort((a,b) => Number(a.price) - Number(b.price));
+    localStorage.setItem("books", JSON.stringify(allBooks));
+    displayBooks();
+}
+
 //localStorage.clear();
 displayBooks();
 
@@ -290,6 +306,13 @@ for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', remove);
 }
 //only one this time (by id)
+//new book button
 buttons = document.getElementById("newBook");
 buttons.addEventListener('click', newBook);
+//sort by title
+buttons = document.getElementById("titleSort");
+buttons.addEventListener('click', sortDataByTitle);
+//sort by price
+buttons = document.getElementById("priceSort");
+buttons.addEventListener('click', sortDataByPrice);
 
