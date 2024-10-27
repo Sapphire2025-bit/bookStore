@@ -56,6 +56,25 @@ function displayBooks()
     //if we took the data from JSON file (nextId is -1), use the max id found +1
     nextId = nextId < 0 ? maxId + 1 : nextId;
     localStorage.setItem("nextId", nextId);
+
+    //event listeners - for all the clickable items in the page:
+    //read, update, delete
+    let buttons = document.getElementsByClassName("read");
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', read);
+    }
+    buttons = document.getElementsByClassName("update");
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', update);
+    }
+    buttons = document.getElementsByClassName("delete");
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', remove);
+    }
+
+    //sort
+    document.getElementById("titleSort").addEventListener('click', sortDataByTitle);
+    document.getElementById("priceSort").addEventListener('click', sortDataByPrice);
 }
 
 function read()
@@ -113,7 +132,7 @@ function update()
     //find the image on the allBooks array by book id
 
     newBookForm.innerHTML = `
-        <button id="closeNewBook">X</button>    
+        <button onclick="exitNewBook()">X</button>    
         <form id="newBookForm">
             <h1 id="formTitle">Update Book</h1>
             <label>
@@ -144,8 +163,8 @@ function update()
         </form> 
     `;
 
-    let exit = document.getElementById("closeNewBook");
-    exit.addEventListener('click', exitNewBook);
+    // let exit = document.getElementById("closeNewBook");
+    // exit.addEventListener('click', exitNewBook);
     
     document.getElementById("newBookForm").addEventListener('submit', verifyInputUpdate);
 }
@@ -155,7 +174,7 @@ function newBook()
     exitRead();
     let newBookForm = document.getElementById("newBookForm");
     newBookForm.innerHTML = `
-        <button id="closeNewBook">X</button>    
+        <button onclick="exitNewBook()">X</button>    
         <form id="newBookForm">
             <h1 id="formTitle">+ New Book</h1>
             <label>
@@ -186,14 +205,15 @@ function newBook()
         </form> 
     `;
 
-    let exit = document.getElementById("closeNewBook");
-    exit.addEventListener('click', exitNewBook);
+    // let exit = document.getElementById("closeNewBook");
+    // exit.addEventListener('click', exitNewBook);
     
     document.getElementById("newBookForm").addEventListener('submit', verifyInput);
 }
 
 function exitNewBook()
 {
+    console.log("exit new book");
     let newBookForm = document.getElementById("newBookForm");
     newBookForm.innerHTML = ``;
 }
@@ -283,6 +303,7 @@ function sortDataByTitle()
 
 function sortDataByPrice()
 {
+    console.log("by price");
     allBooks = allBooks.sort((a,b) => Number(a.price) - Number(b.price));
     localStorage.setItem("books", JSON.stringify(allBooks));
     displayBooks();
@@ -291,28 +312,7 @@ function sortDataByPrice()
 //localStorage.clear();
 displayBooks();
 
-//event listeners - for all the clickable items in the page:
-//read, update, delete, new book
-let buttons = document.getElementsByClassName("read");
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', read);
-}
-buttons = document.getElementsByClassName("update");
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', update);
-}
-buttons = document.getElementsByClassName("delete");
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', remove);
-}
-//only one this time (by id)
 //new book button
-buttons = document.getElementById("newBook");
-buttons.addEventListener('click', newBook);
-//sort by title
-buttons = document.getElementById("titleSort");
-buttons.addEventListener('click', sortDataByTitle);
-//sort by price
-buttons = document.getElementById("priceSort");
-buttons.addEventListener('click', sortDataByPrice);
+let button = document.getElementById("newBook");
+button.addEventListener('click', newBook);
 
