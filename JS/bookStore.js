@@ -194,6 +194,7 @@ function update()
                 Cover Image URL
                 <br>
                 <input type="file" id="image" name="imageUrl">
+                <img id="preview" alt="Image Preview">
             </label>
             <br>
             <button type="submit">Add</button>
@@ -203,6 +204,32 @@ function update()
     document.getElementById('closeNewBook').addEventListener('click', function(event) {
         event.preventDefault();
         exitNewBook();
+    });
+
+    //image preview when a file is chosen
+    const imageUpload = document.getElementById('image');
+    const preview = document.getElementById('preview');
+
+    //default preview style:
+    preview.style.width = "20%";
+    preview.style.height = "20%";
+    preview.style.display = 'none';
+
+    imageUpload.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        console.log(file);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+            preview.src = '';
+        }
     });
     
     document.getElementById("newBookForm").addEventListener('submit', verifyInputUpdate);
@@ -238,6 +265,7 @@ function newBook()
                 Cover Image URL
                 <br>
                 <input type="file" id="image" name="imageUrl">
+                <img id="preview" alt="Image Preview">
             </label>
             <br>
             <button type="submit">Add</button>
@@ -247,6 +275,32 @@ function newBook()
     document.getElementById('closeNewBook').addEventListener('click', function(event) {
         event.preventDefault();
         exitNewBook();
+    });
+
+    //image preview when a file is chosen
+    const imageUpload = document.getElementById('image');
+    const preview = document.getElementById('preview');
+
+    //default preview style:
+    preview.style.width = "20%";
+    preview.style.height = "20%";
+    preview.style.display = 'none';
+
+    imageUpload.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        console.log(file);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+            preview.src = '';
+        }
     });
 
     document.getElementById("newBookForm").addEventListener('submit', verifyInput);
@@ -272,6 +326,9 @@ function verifyInput(event)
         return;
     let currentPrice = document.getElementById("price").value;
     let currentImage = document.getElementById("image").value;
+    let str = currentImage.split(/[\/\\]/);
+    currentImage = "../data/images/" + str[str.length - 1];
+    console.log(currentImage);
 
 
     //if we reached here, the id is valid. push the new book to all books, and update the JSON file
@@ -304,6 +361,8 @@ function verifyInputUpdate(event)
     let currentId = document.getElementById("BookId").value;
     let currentPrice = document.getElementById("price").value;
     let currentImage = document.getElementById("image").value;
+    let str = currentImage.split(/[\/\\]/);
+    currentImage = "../data/images/" + str[str.length - 1];
 
     allBooks.forEach(book => {
         if(book.id == currentId)
