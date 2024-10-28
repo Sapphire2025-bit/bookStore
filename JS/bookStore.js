@@ -167,6 +167,8 @@ function update()
     let price = data[2].textContent.slice(1);
     console.log(title);
     //find the image on the allBooks array by book id
+    const found = allBooks.find((element) => element.id == id);
+    console.log(found.image);
 
     newBookForm.innerHTML = `
         <form id="newBookForm">
@@ -195,6 +197,7 @@ function update()
                 <br>
                 <input type="file" id="image" name="imageUrl">
                 <img id="preview" alt="Image Preview">
+                <input type="hidden" id="existingImage" name="existingImage" value="${found.image || ''}">
             </label>
             <br>
             <button type="submit">Add</button>
@@ -213,7 +216,14 @@ function update()
     //default preview style:
     preview.style.width = "20%";
     preview.style.height = "20%";
-    preview.style.display = 'none';
+    //if before the update we already have am image' show in the preview:
+    if (found.image) {
+        preview.src = found.image;
+        preview.style.display = 'block';
+    }
+    else{
+        preview.style.display = 'none';
+    }
 
     imageUpload.addEventListener('change', function(event) {
         const file = event.target.files[0];
@@ -360,9 +370,19 @@ function verifyInputUpdate(event)
         return;
     let currentId = document.getElementById("BookId").value;
     let currentPrice = document.getElementById("price").value;
-    let currentImage = document.getElementById("image").value;
-    let str = currentImage.split(/[\/\\]/);
-    currentImage = "../data/images/" + str[str.length - 1];
+
+    let imageUpload = document.getElementById("image");
+    let existingImage = document.getElementById("existingImage");
+    let currentImage;
+    if (imageUpload.files.length > 0)
+    {
+        let str = imageUpload.value.split(/[\/\\]/);
+        currentImage = "../data/images/" + str[str.length - 1];
+    }
+    else
+    {
+        currentImage = existingImage.value;
+    }
 
     allBooks.forEach(book => {
         if(book.id == currentId)
