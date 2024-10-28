@@ -113,6 +113,12 @@ function read()
     exit.addEventListener('click', exitRead);
 }
 
+function DecreaseRating()
+{}
+
+function IncreaseRating()
+{}
+
 function exitRead()
 {
     let bookInfo = document.getElementById("bookInfo");
@@ -132,8 +138,8 @@ function update()
     //find the image on the allBooks array by book id
 
     newBookForm.innerHTML = `
-        <button onclick="exitNewBook()">X</button>    
         <form id="newBookForm">
+        <button id="closeNewBook">X</button>
             <h1 id="formTitle">Update Book</h1>
             <label>
                 Id
@@ -163,8 +169,10 @@ function update()
         </form> 
     `;
 
-    // let exit = document.getElementById("closeNewBook");
-    // exit.addEventListener('click', exitNewBook);
+    document.getElementById('closeNewBook').addEventListener('click', function(event) {
+        event.preventDefault();
+        exitNewBook();
+    });
     
     document.getElementById("newBookForm").addEventListener('submit', verifyInputUpdate);
 }
@@ -174,8 +182,8 @@ function newBook()
     exitRead();
     let newBookForm = document.getElementById("newBookForm");
     newBookForm.innerHTML = `
-        <button onclick="exitNewBook()">X</button>    
         <form id="newBookForm">
+            <button id="closeNewBook">X</button>
             <h1 id="formTitle">+ New Book</h1>
             <label>
                 Id
@@ -205,15 +213,16 @@ function newBook()
         </form> 
     `;
 
-    // let exit = document.getElementById("closeNewBook");
-    // exit.addEventListener('click', exitNewBook);
-    
+    document.getElementById('closeNewBook').addEventListener('click', function(event) {
+        event.preventDefault();
+        exitNewBook();
+    });
+
     document.getElementById("newBookForm").addEventListener('submit', verifyInput);
 }
 
 function exitNewBook()
 {
-    console.log("exit new book");
     let newBookForm = document.getElementById("newBookForm");
     newBookForm.innerHTML = ``;
 }
@@ -295,7 +304,6 @@ function remove()
 
 function sortDataByTitle()
 {
-    console.log("by title");
     allBooks = allBooks.sort((a,b) => a.title.localeCompare(b.title));
     localStorage.setItem("books", JSON.stringify(allBooks));
     displayBooks();
@@ -303,7 +311,6 @@ function sortDataByTitle()
 
 function sortDataByPrice()
 {
-    console.log("by price");
     allBooks = allBooks.sort((a,b) => Number(a.price) - Number(b.price));
     localStorage.setItem("books", JSON.stringify(allBooks));
     displayBooks();
