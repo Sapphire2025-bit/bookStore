@@ -109,15 +109,46 @@ function read()
             </div>
         </div>
     `;
-    let exit = document.getElementById("exitRead");
-    exit.addEventListener('click', exitRead);
+
+    document.getElementById("exitRead").addEventListener('click', exitRead);
+    document.getElementById("decrease").addEventListener('click', decreaseRating);
+    document.getElementById("increase").addEventListener('click', increaseRating);
 }
 
-function DecreaseRating()
-{}
+function decreaseRating()
+{
+    let rate = Number(this.parentElement.children[1].textContent);
+    if(rate <= 0)
+        return;
+    rate--;
+    this.parentElement.children[1].textContent = rate;
+    changeRating(rate);
+}
 
-function IncreaseRating()
-{}
+function increaseRating()
+{
+    let rate = Number(this.parentElement.children[1].textContent);
+    if(rate >= 10)
+        return;
+    rate++;
+    this.parentElement.children[1].textContent = rate;
+    changeRating(rate);
+}
+
+//change the rating in the allBooks variable, and in local storage
+function changeRating(newRate)
+{
+    //this is the title in read, since it's the only menu open
+    let title = document.getElementById("title").textContent;
+    allBooks.forEach(book => {
+        if(book.title == title)
+        {
+            book.rating = newRate;
+        }
+    });
+    //update the changed books to local storage:
+    localStorage.setItem("books", JSON.stringify(allBooks));
+}
 
 function exitRead()
 {
