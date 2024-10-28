@@ -183,7 +183,7 @@ function update()
             <label>
                 Title
                 <br>
-                <input type="text" id="title" name="title" value=${title} required>
+                <input type="text" id="title" name="title" value="${title}" required>
             </label>
             <br>
             <label>
